@@ -9,7 +9,7 @@ temp[,7] = 0.2 + 0.8/(1 + exp(-temp[,7]))
 rownames(temp) = c(bh0$years)
 colnames(temp) = c(
   "$F_{\\text{MSY}}$",
-  "SSB$_{\\text{MSY}}$ (mt)",
+  "$S_{\\text{MSY}}$ (mt)",
   "MSY (mt)",
   "$\\phi_0$",
   "$\\phi_{F_{\\text{MSY}}}$",
@@ -32,7 +32,7 @@ temp[,7] = 0.2 + exp(temp[,7])
 rownames(temp) = c(rick0$years)
 colnames(temp) = c(
   "$F_{\\text{MSY}}$",
-  "SSB$_{\\text{MSY}}$ (mt)",
+  "$S_{\\text{MSY}}$ (mt)",
   "MSY (mt)",
   "$\\phi_0$",
   "$\\phi_{F_{\\text{MSY}}}$",
@@ -158,7 +158,7 @@ SR.fn = function(bh=bh0, rick=rick0, bhy=1, ricky=1)
   mtext("Ricker", side = 3, outer = FALSE, line = 0, cex = 1.5)
   
   mtext(side = 2, bquote(paste(italic(R), " (", 10^3, ")")), line = 2, cex = 1.5, outer = TRUE)
-  mtext("SSB (mt)", side = 1, outer = TRUE, line = 1.5, cex = 1.5)
+  mtext("Spawning Biomass (mt)", side = 1, outer = TRUE, line = 1.5, cex = 1.5)
 }
 cairo_pdf("annual_R0_S0.pdf", family = "Times", height = 8, width = 12)
 SR.fn()
@@ -353,7 +353,6 @@ S0_R0_curves.fn = function(years, bhmod = bh0, rickmod = rick0)
   axis(2, lwd = 2)
   sapply(1:length(years), function(x) lines(S, Rb[,x], col = cols[years[x]]))
   points(rep(S0b,n), S0b/phi0, pch = 19, col = cols)
-  mtext("SSB (mt)", side = 1, outer = TRUE, cex = 2, line = 2)
   ind = seq(1,length(phi0),10)
   legend("bottomright", col = cols[ind], legend = mod$years[ind], pch = 19, box.lwd = 2) 
 
@@ -382,7 +381,7 @@ S0_R0_curves.fn = function(years, bhmod = bh0, rickmod = rick0)
   axis(2, labels = FALSE, lwd = 2)
   sapply(1:length(years), function(x) lines(S.r, Rb.r[,x], col = cols[years[x]]))
   points(rep(S0b.r,n), S0b.r/phi0, pch = 19, col = cols)
-  mtext("SSB (mt)", side = 1, outer = TRUE, cex = 2, line = 2)
+  mtext("Spawning Biomass (mt)", side = 1, outer = TRUE, cex = 1.5, line = 2)
   ind = seq(1,length(phi0),10)
 }
 cairo_pdf("steepness_R0_S0_curves.pdf", family = "Times", height = 8, width = 8)
@@ -461,7 +460,7 @@ SR.fn(mod = rick0, mod_2 = rick4, fn = "ricker", maxR = 40000, maxS = 50000)
   box(lwd = 2)
 mtext(side = 3, "Ricker", cex = 1.5, line = 0)
 mtext(side = 2, bquote(paste(italic(R), " (", 10^3, ")")), line = 2, cex = 1.5, outer = TRUE)
-mtext(side = 1, "SSB (mt)", line = 0, cex = 1.5, outer = TRUE)
+mtext(side = 1, "Spawning Biomass (mt)", line = 0, cex = 1.5, outer = TRUE)
 dev.off()
 
 temp = function(mod,y) c(mod$rep$log_FMSY[y], mod$rep$log_SSB_MSY[y], mod$rep$log_MSY[y], mod$rep$log_SPR0[y], mod$rep$log_SR_R0[y], mod$rep$logit_SR_h[y],
@@ -478,7 +477,7 @@ rownames(temp) = c(
   "Ricker ($h$ from 1999 with $\\phi_0$ from 1973)")
 colnames(temp) = c(
   "$F_{\\text{MSY}}$",
-  "SSB$_{\\text{MSY}}$ (mt)",
+  "$S_{\\text{MSY}}$ (mt)",
   "MSY (mt)",
   "$\\phi_0$",
   "$R_0 ~ (10^3)$",
@@ -581,7 +580,7 @@ abline(h = exp(bh2$rep$log_SR_R0 + bh2$rep$log_SPR0)[bh2$env$data$steepness_year
 abline(h = exp(bh1$rep$log_SR_R0 + bh1$rep$log_SPR0)[bh1$env$data$steepness_year]/1000, lwd = 2, col = "gray")
 points(bh2$years, dynb0.bh2[[1]]$SSB/1000, col = "black", pch = 19)
 points(bh2$years, dynb0.bh1[[1]]$SSB/1000, col = "gray", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(bh2$years, dynb0.bh2[[1]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, labels = FALSE, lwd = 2, cex.axis = 1.5)
@@ -605,7 +604,7 @@ abline(h = exp(rick2$rep$log_SR_R0 + rick2$rep$log_SPR0)[rick2$env$data$steepnes
 abline(h = exp(rick1$rep$log_SR_R0 + rick1$rep$log_SPR0)[rick1$env$data$steepness_year]/1000, lwd = 2, col = "gray")
 points(rick2$years, dynb0.rick2[[1]]$SSB/1000, col = "black", pch = 19)
 points(rick2$years, dynb0.rick1[[1]]$SSB/1000, col = "gray", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(rick2$years, dynb0.rick2[[1]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, lwd = 2, cex.axis = 1.5)
@@ -643,7 +642,7 @@ abline(h = median(dynb0.bh2[[2]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(dynb0.bh1[[2]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(bh2$years, dynb0.bh2[[2]]$SSB/1000, col = "black", pch = 19)
 points(bh2$years, dynb0.bh1[[2]]$SSB/1000, col = "gray", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(bh2$years, dynb0.bh2[[2]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, labels = FALSE, lwd = 2, cex.axis = 1.5)
@@ -671,7 +670,7 @@ abline(h = median(dynb0.rick2[[2]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(dynb0.rick1[[2]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(rick2$years, dynb0.rick2[[2]]$SSB/1000, col = "black", pch = 19)
 points(rick2$years, dynb0.rick1[[2]]$SSB/1000, col = "gray", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(rick2$years, dynb0.rick2[[2]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, lwd = 2, cex.axis = 1.5)
@@ -699,7 +698,7 @@ grid(col = gray(0.7))
 abline(h = median(dynb0.bh2[[3]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(exp(bh0$rep$log_SR_R0 + bh0$rep$log_SPR0)[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(bh2$years, dynb0.bh2[[3]]$SSB/1000, col = "black", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(bh2$years, dynb0.bh2[[3]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, labels = FALSE, lwd = 2, cex.axis = 1.5)
@@ -721,7 +720,7 @@ grid(col = gray(0.7))
 abline(h = median(dynb0.rick2[[3]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(exp(rick0$rep$log_SR_R0 + rick0$rep$log_SPR0)[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(rick2$years, dynb0.rick2[[3]]$SSB/1000, col = "black", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(rick2$years, dynb0.rick2[[3]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, lwd = 2, cex.axis = 1.5)
@@ -747,7 +746,7 @@ grid(col = gray(0.7))
 abline(h = median(dynb0.bh2[[4]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(exp(bh0$rep$log_SR_R0 + bh0$rep$log_SPR0)[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(bh2$years, dynb0.bh2[[4]]$SSB/1000, col = "black", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(bh2$years, dynb0.bh2[[4]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, labels = FALSE, lwd = 2, cex.axis = 1.5)
@@ -769,7 +768,7 @@ grid(col = gray(0.7))
 abline(h = median(dynb0.rick2[[4]]$SSB[-(1:6)])/1000, lwd = 2, lty = 2)
 abline(h = median(exp(rick0$rep$log_SR_R0 + rick0$rep$log_SPR0)[-(1:6)])/1000, lwd = 2, lty = 2, col = "gray")
 points(rick2$years, dynb0.rick2[[4]]$SSB/1000, col = "black", pch = 19)
-mtext("SSB (kmt)", side = 2, line = 2.5, cex = 1.5)
+mtext("Spawning Biomass (kmt)", side = 2, line = 2.5, cex = 1.5)
 
 plot(rick2$years, dynb0.rick2[[4]]$NAA[,1]/1000, axes = FALSE, ann = FALSE, type = "n", ylim = c(0, max.xy[2]))
 axis(1, lwd = 2, cex.axis = 1.5)
