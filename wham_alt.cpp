@@ -1,7 +1,7 @@
 #include <TMB.hpp>
 #include <iostream>
 
-#include </home/tmiller2/work/wham/helper_functions.cpp>
+#include "helper_functions.hpp"
 
 template<class Type>
 Type objective_function<Type>::operator() ()
